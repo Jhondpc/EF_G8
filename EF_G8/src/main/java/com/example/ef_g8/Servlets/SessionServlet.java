@@ -25,7 +25,7 @@ public class SessionServlet extends HttpServlet {
         switch (action) {
             case "loginform":
                 Usuarios usuarios = (Usuarios) session.getAttribute("usuarios");
-                if (usuarios != null && usuarios.getEmployeeId() > 0) {
+                if (usuarios != null && usuarios.getIdUsuarios() > 0) {
                     response.sendRedirect(request.getContextPath() + "/UsuariosServlet");
                 } else {
                     RequestDispatcher view = request.getRequestDispatcher("index.jsp");
@@ -52,7 +52,7 @@ public class SessionServlet extends HttpServlet {
             view.forward(request, response);
         }else{
             UsuarioDao usuarioDao = new UsuarioDao();
-            Usuarios usuarios = UsuarioDao.validarUsuarioPasswordHashed(username, password);
+            Usuarios usuarios = usuarioDao.validarUsuarioPassword(username, password);
 
             if (usuarios != null) {
                 HttpSession session = request.getSession();

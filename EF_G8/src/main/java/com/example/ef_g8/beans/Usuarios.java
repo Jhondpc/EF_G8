@@ -7,6 +7,8 @@ public class Usuarios {
     private String correo;
     private String tipo;
     private String contraseña;
+    private String contraseñaHasheada;
+
 
     public int getIdUsuarios() {
         return idUsuarios;
@@ -54,5 +56,13 @@ public class Usuarios {
 
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
+    }
+
+    public String getContraseñaHasheada() {
+        return contraseñaHasheada;
+    }
+
+    public void setContraseñaHasheada(String contraseñaHasheada) {
+        this.contraseñaHasheada = contraseñaHasheada;
     }
 }

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class UsuarioDao extends DaoBase{
 
-    public ArrayList<Usuarios> listarUsuarios() {
+    /*public ArrayList<Usuarios> listarUsuarios() {
         ArrayList<Usuarios> listaUsuarios = new ArrayList<>();
 
         try (Connection conn = this.getConection();
@@ -109,36 +109,34 @@ public class UsuarioDao extends DaoBase{
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-    }
+    }*/
 
-    public Usuarios validarUsuarioPassword(String passw, String correo ){
+    public Usuarios validarUsuarioPassword(String correo,String passw ){
 
         Usuarios usuarios = null;
-        String sql = "select * from usuarios " +
-                "where correoPucp = ? and codigoPucp = ? and contrasenaHasheada = sha2(?, 256)";
+        String sql = "select * from usuario " +
+                "where email = ? and password = sha2(?, 256)";
 
-        try(Connection conn = getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try(Connection conn = this.getConection();
+            PreparedStatement pstmt = conn.prepareStatement(sql);) {
 
             pstmt.setString(1, correo);
-            pstmt.setString(2, codigo);
-            pstmt.setString(3, passw);
+            pstmt.setString(2, passw);
 
             try (ResultSet rs = pstmt.executeQuery()){
                 if (rs.next()){
-                    credenciales = new Credenciales();
+                    usuarios = new Usuarios();
 
-                    credenciales.setIdUsuario(rs.getString(1));
-                    credenciales.setCorreoPucp(rs.getString(2));
-                    credenciales.setCodigoPucp(rs.getString(3));
-                    credenciales.setContrasenaHasheada(rs.getString(4));
+                    usuarios.setIdUsuarios(rs.getInt(1));
+                    usuarios.setCorreo(rs.getString(2));
+                    usuarios.setContraseñaHasheada(rs.getString(3));
                 }
             }
         }
         catch (SQLException e){
             throw new RuntimeException();
         }
-        return credenciales;
+        return usuarios;
     }
 
 }
