@@ -45,12 +45,12 @@
                                         <h5 class="card-title text-center pb-0 fs-4">Ingresa a tu cuenta</h5>
                                     </div>
 
-                                    <form class="row g-3 needs-validation" method="POST" action="<%=request.getContextPath()%>/LoginServlet">
+                                    <form class="row g-3 needs-validation" method="POST" action="<%=request.getContextPath()%>/">
 
                                         <div class="col-12">
-                                            <label for="nroDocumento" class="form-label">Número de Documento</label>
-                                            <input  required type="text" name="nroDocumento" class="form-control" id="nroDocumento">
-                                            <div class="invalid-feedback">Ingresa tu número de documento!</div>
+                                            <label for="Correo" class="form-label">Correo</label>
+                                            <input  required type="text" name="Correo" class="form-control" id="Correo">
+                                            <div class="invalid-feedback">Ingresa tu correo</div>
                                         </div>
 
                                         <div class="col-12">
@@ -67,9 +67,13 @@
                                             <a class="nav-link  " >
                                                 <button type="submit" class="btn btn-primary w-100" type="submit">Iniciar Sesión</button>
                                             </a>
+
                                         </div>
 
                                     </form>
+                                    <a class="nav-link  " >
+                                        <a href="InicioRegistrarse.jsp"><button class="btn btn-primary w-100" type="submit">Registrarse</button></a>
+                                    </a>
 
                                 </div>
                             </div>

@@ -28,7 +28,7 @@ public class SessionServlet extends HttpServlet {
                 if (usuarios != null && usuarios.getIdUsuarios() > 0) {
                     response.sendRedirect(request.getContextPath() + "/UsuariosServlet");
                 } else {
-                    RequestDispatcher view = request.getRequestDispatcher("index.jsp");
+                    RequestDispatcher view = request.getRequestDispatcher("prueba.jsp");
                     view.forward(request, response);
                 }
                 break;
@@ -42,31 +42,83 @@ public class SessionServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        String post = request.getParameter("post");
+        post = (post == null) ? "iniciosesion" : post;
 
-        String username = request.getParameter("inputEmail");
-        String password = request.getParameter("inputPassword");
+        Usuarios usuario;
+        String password;
 
-        if (username == null || password == null) {
-            request.setAttribute("err", "El usuario o password no pueden ser vacíos");
-            RequestDispatcher view = request.getRequestDispatcher("index.jsp");
-            view.forward(request, response);
-        }else{
-            UsuarioDao usuarioDao = new UsuarioDao();
-            Usuarios usuarios = usuarioDao.validarUsuarioPassword(username, password);
+        UsuarioDao usuarioDao = new UsuarioDao();
+        RequestDispatcher requestDispatcher;
 
-            if (usuarios != null) {
-                HttpSession session = request.getSession();
-                session.setAttribute("usuarios", usuarios);
 
-                session.setMaxInactiveInterval(10 * 60); // 10 minutos
+        switch (post) {
+            case "iniciosesion":
+                usuario = (Usuarios) request.getSession().getAttribute("usuarioSession");
+                if (usuario != null && usuario.getIdUsuarios() != 0) {
+                    response.sendRedirect(request.getContextPath());
+                } else {
+                    requestDispatcher = request.getRequestDispatcher("index.jsp");
+                    requestDispatcher.forward(request, response);
+                }
+                break;
+            case "validar":
 
-                response.sendRedirect(request.getContextPath() + "/UsuariosServlet");
-            } else {
-                request.setAttribute("err", "El usuario o password no existen");
-                RequestDispatcher view = request.getRequestDispatcher("index.jsp");
-                view.forward(request, response);
-            }
+                password = request.getParameter("password");
+                String correo = request.getParameter("Correo");
+
+                Usuarios usuarios = usuarioDao.validarUsuarioPassword(correo, password);
+
+                if (usuarios != null) {
+
+                    Usuarios usuarioValido = usuarioDao.buscarPorId(usuarios.getIdUsuarios());
+
+                    HttpSession sessionUsuario = request.getSession();
+                    sessionUsuario.setAttribute("usuarioSession", usuarioValido);
+                    response.sendRedirect(request.getContextPath() + "/prueba.jsp");
+                } else {
+                    request.getSession().setAttribute("error", "Error en usuario o contraseña");
+                    response.sendRedirect(request.getContextPath() + "/index");
+                }
+                break;
+
+            case "registrarse":
+
+                String correos = request.getParameter("Correo");
+
+                usuario = usuarioDao.validarRegistro(correos);
+
+                if (usuario != null) {
+
+                    String link = "";
+                    String mensaje = "Tu registro está casi completo.\n\nIngresa al siguiente link para crear tu contraseña:\n" + link;
+                    String asunto = "Crea tu nueva contraseña";
+
+                    daoUsuarios.enviarCorreo(correoPucp, asunto, mensaje);
+
+                    response.sendRedirect(request.getContextPath() + "/IniciarSesion?action=confirmaRegistro");
+                } else {
+                    // Si no existe, enviar por sesion mensaje de error
+                    HttpSession session = request.getSession();
+                    session.setAttribute("msg", "Correo o código inválido(s)");
+
+                    response.sendRedirect(request.getContextPath() + "/IniciarSesion?action=registrarse");
+                }
+
+                break;
+
+            /*case "guardarContrasena":
+
+                password = request.getParameter("password");
+                String passwordConfirmada = request.getParameter("passwordConfirmada");
+
+                break;
+
+            case "dobleFactor":
+                response.sendRedirect(request.getContextPath() + "/Seguridad");
+                break;*/
         }
-
     }
+
 }
+

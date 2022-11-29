@@ -39,12 +39,6 @@
                         <div class="row justify-content-end">
                             <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
-                                <div class="d-none d-lg-block justify-content-center py-4">
-                                    <div class="logo d-flex align-items-center w-auto">
-                                        <img src="assets/img/telepucp.png" alt="Logo" style="height: 200px;">
-                                        <span class="d-none d-lg-block">INCIDENCIAS PUCP</span>
-                                    </div>
-                                </div><!-- End Logo -->
 
                                 <div class="card mb-3">
 
@@ -52,7 +46,6 @@
 
                                         <div class="pt-4 pb-2">
                                             <h5 class="card-title text-center pb-0 fs-4">Regístrate</h5>
-                                            <p class="text-center small">Ingresa tu correo y código PUCP</p>
                                         </div>
 
                                         <form class="row g-3 needs-validation" method="post"
@@ -60,20 +53,19 @@
                                               novalidate>
 
                                             <div class="col-12">
-                                                <label for="yourUsername" class="form-label">Correo</label>
+                                                <label for="Correo" class="form-label">Correo</label>
                                                 <div class="input-group has-validation">
                                                     <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                                    <input type="text" name="correoPucp" class="form-control"
-                                                           id="yourUsername" required>
+                                                    <input type="text" name="Correo" class="form-control"
+                                                           id="Correo" required>
                                                     <div class="invalid-feedback">Ingresa tu correo!</div>
                                                 </div>
                                             </div>
 
                                             <div class="col-12">
-                                                <label for="yourCode" class="form-label">Código PUCP</label>
-                                                <input type="text" name="codigoPucp" class="form-control" id="yourCode"
+                                                <label for="Contraseña" class="form-label">Contraseña</label>
+                                                <input type="text" name="Contraseña" class="form-control" id="Contraseña"
                                                        required>
-                                                <div class="invalid-feedback">Ingresa tu código!</div>
                                             </div>
 
                                             <% if (session.getAttribute("msg") != null) { %>
@@ -91,7 +83,7 @@
                                             </div>
                                             <div class="col-12">
                                                 <p class="small mb-0">¿Ya tienes una cuenta? <a
-                                                        href="<%=request.getContextPath()%>/ServletIniciarSesion">Inicia
+                                                        href="<%=request.getContextPath()%>/index">Inicia
                                                     sesión aquí</a></p>
                                             </div>
                                         </form>
