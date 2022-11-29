@@ -16,31 +16,97 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `servicio`
+-- Table structure for table `corte_laser`
 --
 
-DROP TABLE IF EXISTS `servicio`;
+DROP TABLE IF EXISTS `corte_laser`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `servicio` (
-  `idservicio` int NOT NULL AUTO_INCREMENT,
-  `tipo` varchar(45) NOT NULL,
-  `fecha` datetime NOT NULL,
-  `informacion` varchar(45) NOT NULL,
+CREATE TABLE `corte_laser` (
+  `idcorte_laser` int NOT NULL AUTO_INCREMENT,
+  `grosor` varchar(45) NOT NULL,
+  `color` varchar(45) NOT NULL,
+  `material` varchar(45) NOT NULL,
+  `alto` int NOT NULL,
+  `ancho` int NOT NULL,
+  `url` varchar(45) NOT NULL,
+  `fecha_registro` datetime NOT NULL,
   `usuario_idusuario` int NOT NULL,
-  PRIMARY KEY (`idservicio`),
-  KEY `fk_servicio_usuario1_idx` (`usuario_idusuario`),
-  CONSTRAINT `fk_servicio_usuario1` FOREIGN KEY (`usuario_idusuario`) REFERENCES `usuario` (`idusuario`)
+  PRIMARY KEY (`idcorte_laser`),
+  KEY `fk_corte_laser_usuario1_idx` (`usuario_idusuario`),
+  CONSTRAINT `fk_corte_laser_usuario1` FOREIGN KEY (`usuario_idusuario`) REFERENCES `usuario` (`idusuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `servicio`
+-- Dumping data for table `corte_laser`
 --
 
-LOCK TABLES `servicio` WRITE;
-/*!40000 ALTER TABLE `servicio` DISABLE KEYS */;
-/*!40000 ALTER TABLE `servicio` ENABLE KEYS */;
+LOCK TABLES `corte_laser` WRITE;
+/*!40000 ALTER TABLE `corte_laser` DISABLE KEYS */;
+/*!40000 ALTER TABLE `corte_laser` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `escaneo_digital_3d`
+--
+
+DROP TABLE IF EXISTS `escaneo_digital_3d`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `escaneo_digital_3d` (
+  `idescaneo_digital_3D` int NOT NULL AUTO_INCREMENT,
+  `largo` float NOT NULL,
+  `ancho` float NOT NULL,
+  `alto` float NOT NULL,
+  `resolucion` varchar(45) NOT NULL,
+  `fecha_registro` datetime NOT NULL,
+  `usuario_idusuario` int NOT NULL,
+  PRIMARY KEY (`idescaneo_digital_3D`),
+  KEY `fk_escaneo_digital_3D_usuario1_idx` (`usuario_idusuario`),
+  CONSTRAINT `fk_escaneo_digital_3D_usuario1` FOREIGN KEY (`usuario_idusuario`) REFERENCES `usuario` (`idusuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `escaneo_digital_3d`
+--
+
+LOCK TABLES `escaneo_digital_3d` WRITE;
+/*!40000 ALTER TABLE `escaneo_digital_3d` DISABLE KEYS */;
+/*!40000 ALTER TABLE `escaneo_digital_3d` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `impresion_3d`
+--
+
+DROP TABLE IF EXISTS `impresion_3d`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `impresion_3d` (
+  `idimpresion_3D` int NOT NULL AUTO_INCREMENT,
+  `densidad` int NOT NULL,
+  `grosor` varchar(45) NOT NULL,
+  `altura` float NOT NULL,
+  `material` varchar(45) NOT NULL,
+  `url` varchar(45) NOT NULL,
+  `auoservicio` varchar(2) NOT NULL,
+  `fecha_registro` datetime NOT NULL,
+  `usuario_idusuario` int NOT NULL,
+  PRIMARY KEY (`idimpresion_3D`),
+  KEY `fk_impresion_3D_usuario_idx` (`usuario_idusuario`),
+  CONSTRAINT `fk_impresion_3D_usuario` FOREIGN KEY (`usuario_idusuario`) REFERENCES `usuario` (`idusuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `impresion_3d`
+--
+
+LOCK TABLES `impresion_3d` WRITE;
+/*!40000 ALTER TABLE `impresion_3d` DISABLE KEYS */;
+/*!40000 ALTER TABLE `impresion_3d` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -81,4 +147,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-11-29 13:08:57
+-- Dump completed on 2022-11-29 14:29:16
