@@ -24,11 +24,11 @@ public class SessionServlet extends HttpServlet {
 
         switch (action) {
             case "loginform":
-                Employee employee = (Employee) session.getAttribute("employee");
-                if (employee != null && employee.getEmployeeId() > 0) {
-                    response.sendRedirect(request.getContextPath() + "/EmployeeServlet");
+                Usuarios usuarios = (Usuarios) session.getAttribute("usuarios");
+                if (usuarios != null && usuarios.getEmployeeId() > 0) {
+                    response.sendRedirect(request.getContextPath() + "/UsuariosServlet");
                 } else {
-                    RequestDispatcher view = request.getRequestDispatcher("login/loginForm.jsp");
+                    RequestDispatcher view = request.getRequestDispatcher("index.jsp");
                     view.forward(request, response);
                 }
                 break;
@@ -48,22 +48,22 @@ public class SessionServlet extends HttpServlet {
 
         if (username == null || password == null) {
             request.setAttribute("err", "El usuario o password no pueden ser vacíos");
-            RequestDispatcher view = request.getRequestDispatcher("login/loginForm.jsp");
+            RequestDispatcher view = request.getRequestDispatcher("index.jsp");
             view.forward(request, response);
         }else{
-            EmployeeDao employeeDao = new EmployeeDao();
-            Employee employee = employeeDao.validarUsuarioPasswordHashed(username, password);
+            UsuarioDao usuarioDao = new UsuarioDao();
+            Usuarios usuarios = UsuarioDao.validarUsuarioPasswordHashed(username, password);
 
-            if (employee != null) {
+            if (usuarios != null) {
                 HttpSession session = request.getSession();
-                session.setAttribute("employee", employee);
+                session.setAttribute("usuarios", usuarios);
 
                 session.setMaxInactiveInterval(10 * 60); // 10 minutos
 
-                response.sendRedirect(request.getContextPath() + "/EmployeeServlet");
+                response.sendRedirect(request.getContextPath() + "/UsuariosServlet");
             } else {
                 request.setAttribute("err", "El usuario o password no existen");
-                RequestDispatcher view = request.getRequestDispatcher("login/loginForm.jsp");
+                RequestDispatcher view = request.getRequestDispatcher("index.jsp");
                 view.forward(request, response);
             }
         }

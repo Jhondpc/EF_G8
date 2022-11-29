@@ -6,6 +6,7 @@ public class Usuarios {
     private String apellidos;
     private String correo;
     private String tipo;
+    private String contraseña;
 
     public int getIdUsuarios() {
         return idUsuarios;
@@ -45,5 +46,13 @@ public class Usuarios {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public String getContraseña() {
+        return contraseña;
+    }
+
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
     }
 }
