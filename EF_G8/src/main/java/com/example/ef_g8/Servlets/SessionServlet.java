@@ -75,14 +75,14 @@ public class SessionServlet extends HttpServlet {
 
                     HttpSession sessionUsuario = request.getSession();
                     sessionUsuario.setAttribute("usuarioSession", usuarioValido);
-                    response.sendRedirect(request.getContextPath() + "/prueba.jsp");
+                    response.sendRedirect(request.getContextPath() + "/ServicioServlet");
                 } else {
                     request.getSession().setAttribute("error", "Error en usuario o contraseña");
                     response.sendRedirect(request.getContextPath() + "/index");
                 }
                 break;
 
-            case "registrarse":
+            /*case "registrarse":
 
                 String correos = request.getParameter("Correo");
 
@@ -105,7 +105,7 @@ public class SessionServlet extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/IniciarSesion?action=registrarse");
                 }
 
-                break;
+                break;*/
 
             /*case "guardarContrasena":
 
